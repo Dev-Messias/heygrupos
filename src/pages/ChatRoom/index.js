@@ -10,13 +10,13 @@ export default function ChatRoom(){
   const navigation = useNavigation();
 
   function handleSignOut(){
-    auth()
+    auth() 
     .signOut()
     .then(()=>{
       //se ele deslogou vamos navegar ele para essa tela
       navigation.navigate("SignIn")
     })
-    .catch(()=>{
+    .catch(()=>{ 
       //se cair aqui não esta logado ou não poassui usuario
       console.log("Nao possui nenhum usuario")
     })
