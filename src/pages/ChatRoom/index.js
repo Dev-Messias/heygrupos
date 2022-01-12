@@ -47,7 +47,7 @@ export default function ChatRoom(){
 const styles = StyleSheet.create({
   container:{
     flex:1,
-  },
+  }, 
   headerRoom:{
     flexDirection: 'row',
     justifyContent: 'space-between',
