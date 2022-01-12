@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, StyleSheet, SafeAreaView, TouchableOpacity, FlatList} from 'react-native';
 
 import auth from '@react-native-firebase/auth';
@@ -6,8 +6,11 @@ import auth from '@react-native-firebase/auth';
 import { useNavigation } from '@react-navigation/native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
+import FabButton from '../../components/FabButton';
+
 export default function ChatRoom(){
   const navigation = useNavigation();
+  const [modalVisible, setModalVisible] = useState(false);
 
   function handleSignOut(){
     auth() 
@@ -40,6 +43,8 @@ export default function ChatRoom(){
         </TouchableOpacity>
       </View>
       {/** Fim Header */}
+
+      <FabButton setVisible={() => setModalVisible(true)} />
     </SafeAreaView>
   );
 }
