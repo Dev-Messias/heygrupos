@@ -1,11 +1,16 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 
-function FabButton({ setVisible }){
+import {useNavigation} from '@react-navigation/native';
+
+function FabButton({ setVisible, userStatus }){
+
+    const navigation = useNavigation();
 
     //função do botão
     function handleNavigateButton(){
-        setVisible() 
+        //verificando se tem usuario abre o modal se não tem abre a tela de login
+        userStatus ? setVisible() :  navigation.navigate("SignIn")
     }
 
     return(

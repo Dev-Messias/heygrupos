@@ -1,21 +1,45 @@
-import React, {useState} from 'react';
-import {View, Text, StyleSheet, SafeAreaView, TouchableOpacity, FlatList} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {
+  View, 
+  Text, 
+  StyleSheet, 
+  SafeAreaView, 
+  TouchableOpacity, 
+  Modal
+} from 'react-native';
 
 import auth from '@react-native-firebase/auth';
 //nevagar para outra tela
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import FabButton from '../../components/FabButton';
+import ModalNewRoom from '../../components/ModalNewRoom';
 
 export default function ChatRoom(){
   const navigation = useNavigation();
+  const isFocused = useIsFocused();
+
+  const [user, setUser] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
+
+
+  //vericando quando abrir o app se o usuario esta logado ou não
+  useEffect(()=>{
+
+    // se o currentUser devolver null não a nunhum usuario logado
+    const hasUser = auth().currentUser ? auth().currentUser.toJSON() : null;
+    console.log(hasUser);
+
+    setUser(hasUser);
+
+  }, [isFocused])
 
   function handleSignOut(){
     auth() 
     .signOut()
     .then(()=>{
+      setUser(null)
       //se ele deslogou vamos navegar ele para essa tela
       navigation.navigate("SignIn")
     })
@@ -32,9 +56,13 @@ export default function ChatRoom(){
       <View style={styles.headerRoom}>
 
         <View style={styles.headerRoomLeft} >
-          <TouchableOpacity onPress={handleSignOut} >
-              <MaterialIcons name="arrow-back" size={28} color="#FFF" />
-          </TouchableOpacity>
+
+         { user && (
+            <TouchableOpacity onPress={handleSignOut} >
+             <MaterialIcons name="arrow-back" size={28} color="#FFF" />
+            </TouchableOpacity>
+         )}
+
           <Text style={styles.title} >Grupos</Text>
         </View>
 
@@ -44,7 +72,12 @@ export default function ChatRoom(){
       </View>
       {/** Fim Header */}
 
-      <FabButton setVisible={() => setModalVisible(true)} />
+      <FabButton setVisible={() => setModalVisible(true)} userStatus={user} />
+
+      <Modal visible={modalVisible} animationType='fade'  transparent={true} >
+        <ModalNewRoom setVisible={() => setModalVisible(false)}  />
+      </Modal>
+
     </SafeAreaView>
   );
 }
