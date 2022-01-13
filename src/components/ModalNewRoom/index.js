@@ -73,6 +73,10 @@ function ModalNewRoom({ setVisible }){
                 <TouchableOpacity style={styles.buttonCreate} onPress={hendleButtonCreate} >
                     <Text style={styles.buttonText} >Criar sala</Text>
                 </TouchableOpacity>
+
+                <TouchableOpacity  activeOpacity={0.9} style={styles.backBotton} onPress={setVisible} >
+                    <Text style={styles.backBottonText} >X</Text>
+                </TouchableOpacity>
             </View>
         </View>
     );
@@ -126,6 +130,22 @@ const styles = StyleSheet.create({
         fontSize: 19,
         fontWeight: 'bold',
         color: '#FFF'
+    },
+    backBotton:{
+        backgroundColor: '#F64B57',
+        width: 40,
+        height: 40,
+        borderRadius: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'absolute',
+        bottom: '103%',
+        right: '6%',
+    },
+    backBottonText:{
+        fontSize: 20,
+        color: '#FFF',
+        fontWeight: 'bold',
     }
 })
 
