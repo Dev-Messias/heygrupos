@@ -1,10 +1,13 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
-export default function Messages(){
+export default function Messages({ route }){
+
+  const { thread } = route.params;
+
   return(
     <View style={styles.container}>
-      <Text>Tela Mensagens</Text>
+      <Text></Text>
     </View>
   );
 }

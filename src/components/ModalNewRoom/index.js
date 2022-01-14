@@ -11,7 +11,7 @@ import {
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 
-function ModalNewRoom({ setVisible }){
+function ModalNewRoom({ setVisible, setUpdateScreen }){
 
     const [roomName, setRoomName] = useState();
 
@@ -21,7 +21,26 @@ function ModalNewRoom({ setVisible }){
     function hendleButtonCreate(){
         if(roomName === '') return;
 
-        createRoom();
+        //deixar apenas cada usuario criar 6 grupos
+        firestore().collection('MESSAGE_THREADS')
+        .get()
+        .then((snapshot ) => {
+            let myThreads = 0;
+
+            snapshot.docs.map( docItem => {
+                if(docItem.data().owner === user.uid){
+                    myThreads += 1;
+                }
+            })
+
+            if(myThreads >= 6){
+                alert('Você já atingiu o limite de grupos por usuario.');
+            }else{
+                createRoom();
+            }
+        })
+
+       
 
     }
 
@@ -45,6 +64,7 @@ function ModalNewRoom({ setVisible }){
             })
             .then(()=>{
                 setVisible();
+                setUpdateScreen();
             })
 
             
