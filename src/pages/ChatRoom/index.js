@@ -21,6 +21,9 @@ import FabButton from '../../components/FabButton';
 import ModalNewRoom from '../../components/ModalNewRoom';
 import ChatList from '../../components/ChatList';
 
+//animação loading
+import LottieView from 'lottie-react-native';
+
 export default function ChatRoom(){
   const navigation = useNavigation();
   const isFocused = useIsFocused();
@@ -38,7 +41,7 @@ export default function ChatRoom(){
 
     // se o currentUser devolver null não a nunhum usuario logado
     const hasUser = auth().currentUser ? auth().currentUser.toJSON() : null;
-    console.log(hasUser);
+    //console.log(hasUser);
 
     setUser(hasUser);
 
@@ -68,7 +71,7 @@ export default function ChatRoom(){
         if(isActive){
           setThreads(threads);
           setLoading(false);
-          console.log(threads);
+          //console.log(threads);
         }
         
 
@@ -101,7 +104,13 @@ export default function ChatRoom(){
   //exibindo loading se estiver true
   if(loading){
     return(
-      <ActivityIndicator size="large" color="#555" />
+      <View style={{ flex: 1, alignItems: 'center', justifyContent:'center', backgroundColor:'#FFFFFF'}} >
+        <LottieView 
+        source={require('../../assets/loading.json')}
+        autoPlay={true}
+        loop={true}
+        />
+      </View>
     );
   }
 
