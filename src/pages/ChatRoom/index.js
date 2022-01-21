@@ -69,16 +69,17 @@ export default function ChatRoom(){
 
         //so ira fazer alteracao se o isActive estiver true
         if(isActive){
-          setThreads(threads);
-          setLoading(false);
-          //console.log(threads);
+            setThreads(threads);
+            setLoading(false);
+          //console.log(threads); 
         }
         
 
       })
     }
-
+   
     getChats();
+    
 
     return () => {
       isActive = false;
@@ -106,7 +107,7 @@ export default function ChatRoom(){
     return(
       <View style={{ flex: 1, alignItems: 'center', justifyContent:'center', backgroundColor:'#FFFFFF'}} >
         <LottieView 
-        source={require('../../assets/loading.json')}
+        source={require('../../assets/loadingM.json')}
         autoPlay={true}
         loop={true}
         />
@@ -165,7 +166,7 @@ function deleteRoom(ownerId, idRoom){
           <Text style={styles.title} >Grupos</Text>
         </View>
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Search')} >
           <MaterialIcons name="search" size={28} color="#FFF" />
         </TouchableOpacity>
       </View>

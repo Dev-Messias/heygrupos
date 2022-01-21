@@ -86,7 +86,8 @@ function ModalNewRoom({ setVisible, setUpdateScreen }){
                 <TextInput 
                     value={roomName}
                     onChangeText={(text) => setRoomName(text)}
-                    placeholder="Nome para sua sala?"
+                    placeholder="Nome para seu grupo?"
+                    placeholderTextColor='#A9A9A9'
                     style={styles.input}
                 />
 
@@ -136,6 +137,7 @@ const styles = StyleSheet.create({
         marginVertical: 15,
         fontSize: 16,
         paddingHorizontal: 5,
+        color: '#000'
     },
 
     buttonCreate:{
